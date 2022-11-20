@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 let mainWindow: BrowserWindow | null
 
@@ -10,16 +11,17 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 //     ? process.resourcesPath
 //     : app.getAppPath()
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     // icon: path.join(assetsPath, 'assets', 'icon.png'),
-    width: 1100,
-    height: 700,
+    width: 1500,
+    height: 800,
     backgroundColor: '#191622',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      devTools: true,
     }
   })
 
@@ -28,21 +30,29 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  mainWindow.webContents.openDevTools()
 }
 
-async function registerListeners () {
+async function registerListeners() {
   /**
    * This comes from bridge integration, check bridge.ts
    */
   ipcMain.on('message', (_, message) => {
+    console.log("aqui")
     console.log(message)
   })
 }
 
 app.on('ready', createWindow)
   .whenReady()
+  .then(() => {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => console.log(`🔥🔥🔥🔥🔥 Added Extension:  ${name}`))
+      .catch((err) => console.log('❌️❌️❌️❌️❌️ An error occurred: ', err));
+  })
   .then(registerListeners)
-  .catch(e => console.error(e))
+  .catch(e => console.error(`error : ${e}`))
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

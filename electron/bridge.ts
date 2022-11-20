@@ -1,5 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
+import { getCpuInfo } from './utils'
+
 export const api = {
   /**
    * Here you can expose functions to the renderer process
@@ -11,6 +13,11 @@ export const api = {
 
   sendMessage: (message: string) => {
     ipcRenderer.send('message', message)
+  },
+
+  getCPU: async () => {
+    console.info("Get /proc/cpuinfo")
+    return await getCpuInfo()
   },
 
   /**
