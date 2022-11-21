@@ -1,20 +1,10 @@
-import styled, { keyframes } from 'styled-components'
-
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`
+import styled from 'styled-components'
 
 export const Container = styled.div`
-  height: 100vh;
   padding: 25px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
   button {
@@ -22,12 +12,21 @@ export const Container = styled.div`
   }
 `
 
-export const Image = styled.img`
-  width: 240px;
-  animation: ${rotate} 15s linear infinite;
+export const Core = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 16px;
 `
 
-export const Text = styled.p`
-  margin-top: 24px;
+export const Text = styled.li`
+  margin-top: 8px;
+  font-size: 16px;
+`
+export const Title = styled.ul`
+  margin-top: 2px;
+  margin-bottom: 10px;
   font-size: 18px;
+  user-select: none;
 `

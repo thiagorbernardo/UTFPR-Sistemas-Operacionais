@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 
-export interface Core {
+export interface ICore {
     id: number;
     model: string;
     mhz: number;
@@ -11,7 +11,7 @@ export const getCpuInfo = async () => {
     const cpuInfo = await fs.readFile('/proc/cpuinfo', 'utf8')
     const matchs = cpuInfo.matchAll(/processor.+: (\d)|model name.+: (.+)|cpu MHz.+: (.+)|cache size.+: (.+)/g)
 
-    const processors: Core[] = []
+    const processors: ICore[] = []
 
     const core = { id: undefined, model: undefined, mhz: undefined, cache: undefined } as any
 
@@ -19,9 +19,9 @@ export const getCpuInfo = async () => {
         const [_, id, model, mhz, cache] = match
 
         core.id = id ? +id : core.id
-        core.model = model ? model : core.model
+        core.model = model || core.model
         core.mhz = mhz ? +mhz : core.mhz
-        core.cache = cache ? cache : core.cache
+        core.cache = cache || core.cache
 
         if (core.id && core.model && core.mhz && core.cache) {
             processors.push({ ...core })

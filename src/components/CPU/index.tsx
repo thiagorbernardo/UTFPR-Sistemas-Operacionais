@@ -1,41 +1,34 @@
 import { useState, useEffect } from 'react';
 
-import { Button } from '../Button'
-import { Container, Image, Text } from './styles'
-import { Core } from '../../../electron/utils'
+import { Container, Core, Text, Title } from './styles'
+import { ICore } from '../../../electron/utils'
 
-export async function CPU() {
-  function handleSayHello() {
-    window.Main.sendMessage('Hello World');
-
-    console.log('Message sent! Check main process log in terminal.')
-  }
-
-  let cpu: Core[] = [];
+export function CPU() {
+  const [cpu, setCpu] = useState<ICore[]>([])
+  const [toggle, setToggle] = useState<boolean>(false)
 
   useEffect(() => {
     (async () => {
-      try {
-        console.log("here")
-        cpu = await window.Main.getCPU();
-      } catch (err) {
-        console.error(err);
-      }
+      setCpu(await window.Main.getCPU());
     })();
   }, [])
 
-  const core = cpu[0]
-  console.log(cpu)
-  // alert(JSON.stringify(core))
   return (
     <Container>
-      <Text>123</Text>
-
-      <Text>Processadores</Text>
-      <Text>Core: {core.id}</Text>
-      <Text>Modelo: {core.model}</Text>
-      <Text>CPU MHz: {core.mhz}</Text>
-      <Text>Cache: {core.cache}</Text>
+      <Title onClick={() =>setToggle(!toggle)}>{toggle ? "▶️" : "🔽"} Processadores</Title>
+      {
+        toggle ? cpu.map(core => {
+          return (
+            <Core>
+              <Text>Core: {core.id}</Text>
+              <Text>Modelo: {core.model}</Text>
+              <Text>CPU MHz: {core.mhz}</Text>
+              <Text>Cache: {core.cache}</Text>
+            </Core>
+          )
+        }) :
+          <></>
+      }
     </Container>
   )
 }

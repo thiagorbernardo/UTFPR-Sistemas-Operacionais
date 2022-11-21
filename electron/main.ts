@@ -22,7 +22,8 @@ function createWindow() {
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       devTools: true,
-    }
+    },
+    title: "Dashboard Sistema Operacional"
   })
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
