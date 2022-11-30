@@ -1,13 +1,36 @@
-import { GlobalStyle } from './styles/GlobalStyle'
+import {
+  GlobalStyle,
+  Horizontal,
+  Hardware,
+  ThreadsFS,
+  MemoryTerminal,
+} from './styles'
 
-import { Greetings, CPU } from './components'
+import {
+  CPU,
+  Memory,
+  Threads,
+  FileSystem,
+  Terminal
+} from './components'
 
 export function App() {
   return (
     <>
       <GlobalStyle />
-      {/* <Greetings /> */}
-      <CPU />
+      <Horizontal>
+        <Hardware>
+          <CPU />
+        </Hardware>
+        <ThreadsFS>
+          <Threads />
+          <FileSystem />
+        </ThreadsFS>
+        <MemoryTerminal>
+          <Memory />
+          <Terminal />
+        </MemoryTerminal>
+      </Horizontal>
     </>
   )
 }

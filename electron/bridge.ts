@@ -20,6 +20,11 @@ export const api = {
     return await getCpuInfo()
   },
 
+  getMemory: async () => {
+    console.info("Get /proc/memory")
+    return await getCpuInfo()
+  },
+
   /**
    * Provide an easier way to listen to events
    */
