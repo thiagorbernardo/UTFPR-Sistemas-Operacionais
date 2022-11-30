@@ -13,10 +13,10 @@ export const getCpuInfo = async () => {
 
     const processors: ICore[] = []
 
-    const core = { id: undefined, model: undefined, mhz: undefined, cache: undefined } as any
+    const core = { } as any
 
     for (const match of matchs) {
-        const [_, id, model, mhz, cache] = match
+        const [, id, model, mhz, cache] = match
 
         core.id = id ? +id : core.id
         core.model = model || core.model
