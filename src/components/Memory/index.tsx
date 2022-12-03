@@ -5,12 +5,14 @@ import { IMemory } from '../../../electron/utils'
 
 export function Memory() {
   const [memory, setMemory] = useState<IMemory>({} as any)
-
+  
   useEffect(() => {
-    (async () => {
+    const interval = setInterval(async () => {
       setMemory(await window.Main.getMemory());
-    })();
-  }, [])
+    }, 100);
+  
+    return () => clearInterval(interval);
+  }, []);
 
   const calculatePercentage = (free: number, total: number) => {
     if (!free || !total) return 0;

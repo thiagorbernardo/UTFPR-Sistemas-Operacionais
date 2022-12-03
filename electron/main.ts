@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+require('electron-debug')({ devToolsMode: 'detach' });
 
 let mainWindow: BrowserWindow | null
 
@@ -32,7 +33,9 @@ function createWindow() {
     mainWindow = null
   })
 
-  mainWindow.webContents.openDevTools()
+  const devtools = new BrowserWindow()
+  mainWindow.webContents.setDevToolsWebContents(devtools.webContents)
+  mainWindow.webContents.openDevTools({ mode: 'detach' })
 }
 
 async function registerListeners() {
