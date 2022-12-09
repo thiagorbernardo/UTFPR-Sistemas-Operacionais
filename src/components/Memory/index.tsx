@@ -5,11 +5,11 @@ import { IMemory } from '../../../electron/utils'
 
 export function Memory() {
   const [memory, setMemory] = useState<IMemory>({} as any)
-  
+
   useEffect(() => {
     const interval = setInterval(async () => {
       setMemory(await window.Main.getMemory());
-    }, 100);
+    }, 50);
   
     return () => clearInterval(interval);
   }, []);
@@ -23,8 +23,8 @@ export function Memory() {
     return (mem / 1024 / 1024).toFixed(2);
   }
 
-  console.log("memory")
-  console.log(memory)
+  // console.log("memory")
+  // console.log(memory)
 
   return (
     <Container>

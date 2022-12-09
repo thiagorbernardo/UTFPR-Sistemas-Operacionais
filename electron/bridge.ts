@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
-import { getCpuInfo, getMemory } from './utils'
+import { executeInTerminal, getCpuInfo, getMemory, getProcesses } from './utils'
 
 export const api = {
   /**
@@ -16,13 +16,21 @@ export const api = {
   },
 
   getCPU: async () => {
-    console.info("Get /proc/cpuinfo")
+    // console.info("Get /proc/cpuinfo")
     return await getCpuInfo()
   },
 
   getMemory: async () => {
-    console.info("Get /proc/meminfo")
+    // console.info("Get /proc/meminfo")
     return await getMemory()
+  },
+
+  getProcesses: async () => {
+    return await getProcesses()  
+  },
+
+  executeInTerminal: async (command: string) => {
+    return await executeInTerminal(command)
   },
 
   /**

@@ -6,10 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-
-  button {
-    margin-top: 24px;
-  }
+  flex: 2;
 `
 
 export const Core = styled.div`

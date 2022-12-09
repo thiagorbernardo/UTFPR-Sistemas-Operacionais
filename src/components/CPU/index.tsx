@@ -19,7 +19,7 @@ export function CPU() {
       {
         toggle ? cpu.map(core => {
           return (
-            <Core>
+            <Core key={core.id}>
               <Text>Core: {core.id}</Text>
               <Text>Modelo: {core.model}</Text>
               <Text>CPU MHz: {core.mhz}</Text>
