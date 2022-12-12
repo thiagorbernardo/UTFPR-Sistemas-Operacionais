@@ -11,7 +11,9 @@ import {
   Memory,
   Threads,
   FileSystem,
-  Terminal
+  Terminal,
+  USB,
+  MotherBoard,
 } from './components'
 
 export function App() {
@@ -21,6 +23,8 @@ export function App() {
       <Horizontal>
         <Hardware>
           <CPU />
+          <USB />
+          <MotherBoard />
         </Hardware>
         <ThreadsFS>
           <Threads />
