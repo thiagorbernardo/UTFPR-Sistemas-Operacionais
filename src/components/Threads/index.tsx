@@ -38,19 +38,19 @@ export function Threads() {
   const [processes, setProcesses] = useState<IProcess[]>([])
   const [isFetching, toggleFetching] = useState<boolean>(true)
 
-  useEffect(() => {
-    (async () => {
-      setProcesses(await window.Main.getProcesses());
-    })();
-  }, [])
-
   // useEffect(() => {
-  //   const interval = setInterval(async () => {
+  //   (async () => {
   //     setProcesses(await window.Main.getProcesses());
-  //   }, 1000);
+  //   })();
+  // }, [])
 
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      setProcesses(await window.Main.getProcesses());
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
@@ -148,9 +148,9 @@ export function Threads() {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: false,
+    // debugTable: true,
+    // debugHeaders: true,
+    // debugColumns: false,
   })
 
   useEffect(() => {
@@ -213,9 +213,6 @@ export function Threads() {
                 ))}
               </thead>
               <tbody>
-                {
-                  console.log(table.getRowModel().rows.length)
-                }
                 {table.getRowModel().rows.map(row => {
                   return (
                     <tr key={row.id}>
@@ -235,11 +232,8 @@ export function Threads() {
               </tbody>
             </table>
           </TableContainer>
-          <div>{table.getRowModel().rows.length} Rows</div>
+          <div>{table.getRowModel().rows.length} Processos</div>
         </div>
-        <button onClick={() => table.nextPage()}>
-          asdasd
-        </button>
       </Container>
     </>
   )

@@ -6,8 +6,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  overflow: scroll;
   flex: 2;
+  width: 1430px
 `
 
 export const Processes = styled.div`

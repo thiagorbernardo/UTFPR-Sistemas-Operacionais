@@ -14,12 +14,15 @@ import {
   Terminal,
   USB,
   MotherBoard,
+  CPUUsage
 } from './components'
 
 export function App() {
   return (
     <>
       <GlobalStyle />
+      <Memory />
+      {/* <CPUUsage /> */}
       <Horizontal>
         <Hardware>
           <CPU />
@@ -28,11 +31,10 @@ export function App() {
         </Hardware>
         <ThreadsFS>
           <Threads />
+          <Terminal />
           <FileSystem />
         </ThreadsFS>
         {/* <MemoryTerminal>
-          <Memory />
-          <Terminal />
         </MemoryTerminal> */}
       </Horizontal>
     </>

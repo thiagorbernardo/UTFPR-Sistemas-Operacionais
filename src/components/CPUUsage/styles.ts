@@ -7,7 +7,7 @@ export const Horizontal = styled.div`
   justify-content: center;
   align-content: center;
   text-align: center;
-  /* width: 50%; */
+  width: 50%;
 `
 
 export const Container = styled.div`

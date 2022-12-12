@@ -15,7 +15,7 @@ export const getMemory = async () => {
     const output = await exec('top -bn 1 | grep "MB"', { encoding: 'utf-8' })
 
     if (output.stderr) {
-        console.log('Error in process', output.stderr)
+        console.log('Error in memory', output.stderr)
     }
 
     const matchs = output.stdout.matchAll(/\d+,\d+/gm)
