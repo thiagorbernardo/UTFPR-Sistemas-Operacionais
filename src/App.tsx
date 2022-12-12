@@ -30,10 +30,10 @@ export function App() {
           <Threads />
           <FileSystem />
         </ThreadsFS>
-        <MemoryTerminal>
+        {/* <MemoryTerminal>
           <Memory />
           <Terminal />
-        </MemoryTerminal>
+        </MemoryTerminal> */}
       </Horizontal>
     </>
   )

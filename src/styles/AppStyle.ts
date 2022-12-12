@@ -11,7 +11,7 @@ export const ThreadsFS = styled.div`
   flex-direction: column;
   align-items: stretch;
   // justify-content: center;
-  width: 32%;
+  /* width: 32%; */
   height: 100%;
   /* border-color: red; */
   /* border-style: solid; */

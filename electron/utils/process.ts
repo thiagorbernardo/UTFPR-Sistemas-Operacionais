@@ -2,37 +2,41 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 export interface IProcess {
-    uid: string;
-    pid: string;
-    ppid: string;
-    month: string;
-    dayOfMonth: number;
+    user: string;
+    pid: number;
+    ppid: number;
+    pri: number;
+    pcpu: number;
+    pmem: number;
+    status: number;
     time: string;
     command: string;
 }
 
 export const getProcesses = async () => {
-    const output = await exec('ps -eLF', { encoding: 'utf-8' })
+    const output = await exec('ps -eo user,pid,ppid,pri,pcpu,pmem,stat,time,comm:20', { encoding: 'utf-8' })
 
     if (output.stderr) {
         console.log('Error in process', output.stderr)
     }
 
-    const matchs = output.stdout.matchAll(/^(.+) +(\d+) +(\d+) +\d+ +\d+ +\d+ +\d+ +\d+ +\d+ +([A-z]+)(\d+) +.+ +(\d{2}:\d{2}:\d{2}) (.+)$/gm)
+    const matchs = output.stdout.matchAll(/^(.+) +(\d+) +(\d+) +(\d)+ +(\d+\.\d+) +(\d+\.\d+) +(.+) +(\d{2}:\d{2}:\d{2}) (.+)$/gm)
 
     const process: IProcess[] = []
 
     for (const match of matchs) {
-        const [, uid, pid, ppid, month, dayOfMonth, time, command] = match
+        const [, user, pid, ppid, pri, pcpu, pmem, stat, time, comm] = match
 
         process.push({
-            uid,
-            pid: pid,
-            ppid: ppid,
-            month,
-            dayOfMonth: parseInt(dayOfMonth),
-            time,
-            command
+            user: user.trim(),
+            pid: +pid,
+            ppid: +ppid,
+            pri: +pri,
+            pcpu: +pcpu,
+            pmem: +pmem,
+            status: stat.trim(),
+            time: time.trim(),
+            command: comm.trim(),
         })
     }
 

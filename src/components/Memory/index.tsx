@@ -23,16 +23,8 @@ export function Memory() {
     return (mem / 1024).toFixed(2);
   }
 
-  console.log('-------')
-  console.log(memory)
-
-  // console.log(calculatePercentage(memory.cached, memory.memTotal))
-  // console.log(calculatePercentage(memory.memTotal - memory.memFree - memory.cached, memory.memTotal))
-  // console.log(calculatePercentage(memory.memFree, memory.memTotal))
   // console.log('-------')
-
-  // total - free - cached = used
-  // used // cache // free
+  // console.log(memory)
 
   return (
     <Container>
