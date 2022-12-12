@@ -25,6 +25,7 @@ export const MemoryContainer = styled.div`
   width: 100%;
   height: 30px;
   border-radius: 5px;
+  display: flex;
 `
 
 export const RowSpaced = styled.div`
@@ -34,10 +35,11 @@ export const RowSpaced = styled.div`
   width: 100%;
 `
 
-export const MemoryUsed = styled.div.attrs((props: { width: string }) => ({
+export const MemoryUsed = styled.div.attrs((props: { width: string, color: string }) => ({
   width: props.width,
+  color: props.color,
 }))`
-  background-color: red;
+  background-color: ${(props) => props.color};
   width: ${props => props.width}%;
   height: 100%;
 `;

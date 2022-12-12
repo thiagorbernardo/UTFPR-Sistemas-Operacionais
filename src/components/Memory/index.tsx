@@ -10,13 +10,13 @@ export function Memory() {
     const interval = setInterval(async () => {
       setMemory(await window.Main.getMemory());
     }, 50);
-  
+
     return () => clearInterval(interval);
   }, []);
 
-  const calculatePercentage = (free: number, total: number) => {
-    if (!free || !total) return 0;
-    return (((total - free) / total) * 100).toFixed(2);
+  const calculatePercentage = (partial: number, total: number) => {
+    if (!partial || !total) return 0;
+    return ((100 * partial) / total).toFixed(2);
   }
 
   const roundMemory = (mem: number) => {
@@ -24,18 +24,33 @@ export function Memory() {
   }
 
   // console.log("memory")
-  // console.log(memory)
+  // console.log(memory.memTotal / 1024)
+  console.log('-------')
+  console.log(calculatePercentage(memory.cached, memory.memTotal))
+  console.log(calculatePercentage(memory.memTotal - memory.memFree - memory.cached, memory.memTotal))
+  console.log(calculatePercentage(memory.memFree, memory.memTotal))
+  console.log('-------')
+
+  // total - free - cached = used
+  // used // cache // free
 
   return (
     <Container>
       <Title>Memória</Title>
-      <Text>Usado x Total</Text>
+      <RowSpaced>
+        <a>Usado (GB)</a>
+        <a>Cache (GB)</a>
+        <a>Livre (GB)</a>
+      </RowSpaced>
       <MemoryContainer>
-        <MemoryUsed width={calculatePercentage(memory.memFree, memory.memTotal)} />
+        <MemoryUsed width={calculatePercentage(memory.cached, memory.memTotal)} color={'#E32227'} />
+        <MemoryUsed width={calculatePercentage(memory.memTotal - memory.memFree - memory.cached, memory.memTotal)} color={'#D1D100'} />
+        <MemoryUsed width={calculatePercentage(memory.memFree, memory.memTotal)} color={'#1A7CFA'} />
       </MemoryContainer>
       <RowSpaced>
-        <a>{roundMemory(memory.memTotal - memory.memFree)} GB</a>
-        <a>{roundMemory(memory.memTotal)} GB</a>
+        <a>{roundMemory(memory.cached)} GB</a>
+        <a>{roundMemory(memory.memTotal - memory.memFree - memory.cached)} GB</a>
+        <a>{roundMemory(memory.memFree)} GB</a>
       </RowSpaced>
       <br />
       <Text>Swap Usado x Swap Total</Text>
@@ -46,9 +61,6 @@ export function Memory() {
         <a>{roundMemory(memory.swapTotal - memory.swapFree)} GB</a>
         <a>{roundMemory(memory.swapTotal)} GB</a>
       </RowSpaced>
-      <br />
-      <br />
-      <a>Cache: {roundMemory(memory.cached)} GB</a>
     </Container>
   )
 }
