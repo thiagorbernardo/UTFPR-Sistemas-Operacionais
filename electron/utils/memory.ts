@@ -1,28 +1,34 @@
-import { promises as fs } from 'fs';
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 export interface IMemory {
     memTotal: number;
     memFree: number;
-    cached: number;
+    memUsed: number;
+    memCache: number;
     swapTotal: number;
     swapFree: number;
+    swapUsed: number;
 }
 
 export const getMemory = async () => {
-    const memoryFile = await fs.readFile('/proc/meminfo', 'utf8')
-    const matchs = memoryFile.matchAll(/^MemTotal: +(\d+)|^MemFree: +(\d+)|^Cached: +(\d+)|^SwapTotal: +(\d+)|^SwapFree: +(\d+)/gm)
+    const output = await exec('top -bn 1 | grep "MB"', { encoding: 'utf-8' })
 
-    const memory: IMemory = { } as any
-
-    for (const match of matchs) {
-        const [, memTotal, memFree, cached, swapTotal, swapFree] = match
-
-        memory.memTotal = memTotal ? +memTotal : memory.memTotal
-        memory.memFree = memFree ? +memFree : memory.memFree
-        memory.cached = cached ? +cached : memory.cached
-        memory.swapTotal = swapTotal ? +swapTotal : memory.swapTotal
-        memory.swapFree = swapFree ? +swapFree : memory.swapFree
+    if (output.stderr) {
+        console.log('Error in process', output.stderr)
     }
 
+    const matchs = output.stdout.matchAll(/\d+,\d+/gm)
+
+    const values = []
+    
+    for (const match of matchs) {
+        const [value,] = match
+        values.push(+value.replace(',', '.'))
+    }
+    
+    const [memTotal, memFree, memUsed, memCache, swapTotal, swapFree, swapUsed] = values
+    const memory: IMemory = { memTotal, memFree, memUsed, memCache, swapTotal, swapFree, swapUsed }
+    
     return memory
 }

@@ -20,16 +20,16 @@ export function Memory() {
   }
 
   const roundMemory = (mem: number) => {
-    return (mem / 1024 / 1024).toFixed(2);
+    return (mem / 1024).toFixed(2);
   }
 
-  // console.log("memory")
-  // console.log(memory.memTotal / 1024)
   console.log('-------')
-  console.log(calculatePercentage(memory.cached, memory.memTotal))
-  console.log(calculatePercentage(memory.memTotal - memory.memFree - memory.cached, memory.memTotal))
-  console.log(calculatePercentage(memory.memFree, memory.memTotal))
-  console.log('-------')
+  console.log(memory)
+
+  // console.log(calculatePercentage(memory.cached, memory.memTotal))
+  // console.log(calculatePercentage(memory.memTotal - memory.memFree - memory.cached, memory.memTotal))
+  // console.log(calculatePercentage(memory.memFree, memory.memTotal))
+  // console.log('-------')
 
   // total - free - cached = used
   // used // cache // free
@@ -43,22 +43,22 @@ export function Memory() {
         <a>Livre (GB)</a>
       </RowSpaced>
       <MemoryContainer>
-        <MemoryUsed width={calculatePercentage(memory.cached, memory.memTotal)} color={'#E32227'} />
-        <MemoryUsed width={calculatePercentage(memory.memTotal - memory.memFree - memory.cached, memory.memTotal)} color={'#D1D100'} />
+        <MemoryUsed width={calculatePercentage(memory.memUsed, memory.memTotal)} color={'#E32227'} />
+        <MemoryUsed width={calculatePercentage(memory.memCache, memory.memTotal)} color={'#D1D100'} />
         <MemoryUsed width={calculatePercentage(memory.memFree, memory.memTotal)} color={'#1A7CFA'} />
       </MemoryContainer>
       <RowSpaced>
-        <a>{roundMemory(memory.cached)} GB</a>
-        <a>{roundMemory(memory.memTotal - memory.memFree - memory.cached)} GB</a>
+        <a>{roundMemory(memory.memUsed)} GB</a>
+        <a>{roundMemory(memory.memCache)} GB</a>
         <a>{roundMemory(memory.memFree)} GB</a>
       </RowSpaced>
       <br />
       <Text>Swap Usado x Swap Total</Text>
       <MemoryContainer>
-        <MemoryUsed width={calculatePercentage(memory.swapFree, memory.swapTotal)} />
+        <MemoryUsed width={calculatePercentage(memory.swapUsed, memory.swapTotal)} color={'#E32227'}/>
       </MemoryContainer>
       <RowSpaced>
-        <a>{roundMemory(memory.swapTotal - memory.swapFree)} GB</a>
+        <a>{roundMemory(memory.swapUsed)} GB</a>
         <a>{roundMemory(memory.swapTotal)} GB</a>
       </RowSpaced>
     </Container>
