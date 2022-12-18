@@ -32,7 +32,6 @@ export function App() {
         <ThreadsFS>
           <Threads />
           <Terminal />
-          <FileSystem />
         </ThreadsFS>
         {/* <MemoryTerminal>
         </MemoryTerminal> */}

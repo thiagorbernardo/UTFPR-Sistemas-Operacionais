@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
-import { executeInTerminal, getCpuInfo, getMemory, getProcesses, getUsb, getMotherBoard, getCpuUsage, getCpuSummary } from './utils'
+import { executeInTerminal, getCpuInfo, getMemory, getProcesses, getUsb, getMotherBoard, getCpuUsage, getCpuSummary, getDiskUsage } from './utils'
 
 export const api = {
   /**
@@ -27,6 +27,10 @@ export const api = {
     return await getCpuUsage()
   },
 
+  getDiskUsage: async () => {
+    return await getDiskUsage()
+  },
+
   getMemory: async () => {
     return await getMemory()
   },
@@ -45,6 +49,10 @@ export const api = {
  
   executeInTerminal: async (command: string) => {
     return await executeInTerminal(command)
+  },
+
+  openNewTerminal: async () => {
+    return await executeInTerminal('gnome-terminal')
   },
 
   /**

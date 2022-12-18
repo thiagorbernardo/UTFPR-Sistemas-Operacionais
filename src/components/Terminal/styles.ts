@@ -6,19 +6,18 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  width: 100%;
+`
 
+export const RowContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
   button {
-    margin-top: 24px;
+    margin-left: 30px;
   }
 `
 
-export const Core = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  margin-bottom: 16px;
-`
 
 export const Text = styled.li`
   margin-top: 8px;

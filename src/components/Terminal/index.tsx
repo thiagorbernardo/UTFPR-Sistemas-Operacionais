@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { XTerm } from 'xterm-for-react';
 
-import { Container, Core, Text, Title } from './styles'
+import { Container, RowContainer, Title } from './styles'
 import { ICore } from '../../../electron/utils'
-
-// const COLORS = {
-//   HEADER: '\033[95m'
-// OKBLUE: '\033[94m'
-// OKCYAN: '\033[96m'
-// OKGREEN: '\033[92m'
-// WARNING: '\033[93m'
-// FAIL: '\033[91m'
-// ENDC: '\033[0m'
-// BOLD: '\033[1m'
-// UNDERLINE: '\033[4m'
-// }
+import { Button } from '../Button';
 
 interface KeyEvent {
   key: string;
@@ -68,7 +57,10 @@ export function Terminal() {
   return (
     <Container>
       <Title>Terminal</Title>
-      <XTerm ref={xtermRef} onData={onData} onKey={onKey} />
+      <RowContainer>
+        <XTerm ref={xtermRef} onData={onData} onKey={onKey} />
+        <Button onClick={() => window.Main.openNewTerminal()}>Abrir Terminal Ubuntu</Button>
+      </RowContainer>
     </Container>
   )
 }
