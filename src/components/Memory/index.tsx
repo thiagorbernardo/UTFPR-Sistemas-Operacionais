@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { Container, MemoryContainer, MemoryUsed, Text, Title, RowSpaced, Horizontal } from './styles'
+import { Container, MemoryContainer, MemoryUsed, InvisibleText, Title, RowSpaced, Horizontal } from './styles'
 import { ICPULoad, IDisk, IMemory } from '../../../electron/utils'
 
 export function Memory() {
@@ -71,6 +71,9 @@ export function Memory() {
           cpus[0] ? <Container>
 
             <Title>CPU</Title>
+            <RowSpaced>
+              <InvisibleText>a</InvisibleText>
+            </RowSpaced>
             <MemoryContainer>
               <MemoryUsed width={cpus[0].usr} color={'#1A7CFA'} />
               <MemoryUsed width={cpus[0].sys} color={'#E32227'} />
@@ -85,14 +88,17 @@ export function Memory() {
         }
         <Container>
           <Title>Disco</Title>
+          <RowSpaced>
+            <InvisibleText>a</InvisibleText>
+          </RowSpaced>
           <MemoryContainer>
             <MemoryUsed width={calculatePercentage(disk.used, disk.total)} color={'#E32227'} />
           </MemoryContainer>
           <RowSpaced>
-              <a>Usado: {disk.used} GB</a>
-              <a>Disponível: {disk.free} GB</a>
-              <a>Total: {disk.total} GB</a>
-            </RowSpaced>
+            <a>Usado: {disk.used} GB</a>
+            <a>Disponível: {disk.free} GB</a>
+            <a>Total: {disk.total} GB</a>
+          </RowSpaced>
         </Container>
       </Horizontal>
     </>

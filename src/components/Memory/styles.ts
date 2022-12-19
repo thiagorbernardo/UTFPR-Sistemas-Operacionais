@@ -23,6 +23,10 @@ export const Text = styled.a`
   margin-top: 8px;
   font-size: 16px;
 `
+export const InvisibleText = styled.a`
+  visibility: hidden;
+`
+
 export const Title = styled.ul`
   margin-top: 2px;
   margin-bottom: 10px;
