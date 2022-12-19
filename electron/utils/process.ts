@@ -8,9 +8,43 @@ export interface IProcess {
     pri: number;
     pcpu: number;
     pmem: number;
-    status: number;
+    status: string;
     time: string;
     command: string;
+}
+
+export const getStateDescription = (state: string) => {
+    let final = ''
+    if(state.includes('R')) {
+        final += 'Running'
+    } else if(state.includes('S')) {
+        final += 'Sleeping'
+    } else if(state.includes('D')) {
+        final += 'Waiting'
+    } else if (state.includes('Z')) {
+        final += 'Zombie'
+    } else if (state.includes('T')) {
+        final += 'Stopped'
+    } else if (state.includes('W')) {
+        final += 'Paging'
+    } else if (state.includes('X')) {
+        final += 'Dead'
+    }
+
+    return final
+}
+
+export const getBSDDescription = (state: string) => {
+    let final = ''
+    if(state.includes('I') || state.includes('l')) {
+        final += 'Multi Threaded'
+    } else if (state.includes('<')) {
+        final += 'High Priority'
+    } else if (state.includes('N')) {
+        final += 'Low Priority'
+    }
+
+    return final
 }
 
 export const getProcesses = async () => {
@@ -34,7 +68,8 @@ export const getProcesses = async () => {
             pri: +pri,
             pcpu: +pcpu,
             pmem: +pmem,
-            status: stat.trim(),
+            status: stat,
+            // status: `${getStateDescription(stat)} ${getBSDDescription(stat)}`,
             time: time.trim(),
             command: comm.trim(),
         })

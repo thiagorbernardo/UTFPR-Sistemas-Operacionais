@@ -83,11 +83,8 @@ export function Memory() {
           </Container>
             : <></>
         }
-      </Horizontal>
-
-      <Horizontal>
         <Container>
-          <Title>Partição /</Title>
+          <Title>Disco</Title>
           <MemoryContainer>
             <MemoryUsed width={calculatePercentage(disk.used, disk.total)} color={'#E32227'} />
           </MemoryContainer>
@@ -97,8 +94,6 @@ export function Memory() {
               <a>Total: {disk.total} GB</a>
             </RowSpaced>
         </Container>
-        <Container />
-        <Container />
       </Horizontal>
     </>
   )
